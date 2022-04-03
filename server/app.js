@@ -4,6 +4,7 @@ require('dotenv').config()
 
 const connectDB = require('./db/connect')
 const users = require('./routes/users')
+const notFound = require('./middleware/not-found')
 
 
 // Middleware
@@ -11,17 +12,17 @@ const users = require('./routes/users')
 app.use(express.json())
 
 // Routes
-app.get('/hello', (req, res) => {
-    res.send('WFH Ninja')
-})
 
 app.use('/api/v1/users', users)
 
-// app.post('/api/v1/newuser')  - register new user 
-// app.post('/api/v1/users/:id/login')  - login user
-// app.get('/api/v1/users')  - get all users 
-// app.get('/api/v1/users/:id')  - get user info 
-// app.patch('/api/v1users/:id')  - post workout session
+app.use(notFound)
+
+// app.post('/api/v1/users/')  - register new user 
+// app.get('/api/v1/users/')  - get all users
+// app.get('/api/v1/users/:id')  - get user info
+// app.delete('/api/v1/users/:id')  - delete user info 
+// app.patch('/api/v1/users/:id/goals')  - update user goals
+// app.patch('/api/v1/users/:id/logs')  - update user logs 
 
 
 const port =  process.env.PORT || 3000
