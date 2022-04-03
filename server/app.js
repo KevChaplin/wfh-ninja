@@ -5,7 +5,7 @@ require('dotenv').config()
 const connectDB = require('./db/connect')
 const users = require('./routes/users')
 const notFound = require('./middleware/not-found')
-
+const errorHandlerMiddleware = require('./middleware/error-handler')
 
 // Middleware
 
@@ -16,6 +16,7 @@ app.use(express.json())
 app.use('/api/v1/users', users)
 
 app.use(notFound)
+app.use(errorHandlerMiddleware)
 
 // app.post('/api/v1/users/')  - register new user 
 // app.get('/api/v1/users/')  - get all users
