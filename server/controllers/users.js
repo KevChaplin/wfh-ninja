@@ -2,12 +2,6 @@ const User = require('../models/User')
 const asyncWrapper = require('../middleware/async')
 const { createCustomError } = require('../errors/custom-error')
 
-// Create new user -- SWITHCHED TO AUTH ROUTE
-// const createUser = asyncWrapper(async (req, res) => {
-//         const user = await User.create(req.body)
-//         res.status(201).json({ user })
-// })
-
 // Get all users (for testing - not needed in final)
 const getAllUser = asyncWrapper(async (req, res, next) => {
         const user = await User.find({})
