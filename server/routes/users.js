@@ -6,7 +6,6 @@ const {
     getUser,
     updateGoal,
     updateLogs,
-    updateUser,
     deleteUser
 } = require('../controllers/users')
 

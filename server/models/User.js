@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
 const exerciseSchema = new mongoose.Schema({
     exercise: {
@@ -33,10 +34,14 @@ const UserSchema = new mongoose.Schema({
         required: [ true, 'Password is required'],
         trim: true,
         minlength: [6, 'Password must be 6 - 12 characters in length'],
-        maxlength: [12, 'Password must be 6 - 12 characters in length']
     },
     goals: [ exerciseSchema ],
     logs: [ logSchema ]
+})
+
+UserSchema.pre('save', async function() {
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
 })
 
 module.exports = mongoose.model('User', UserSchema)
