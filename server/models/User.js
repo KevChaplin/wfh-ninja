@@ -25,14 +25,15 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required: [ true, 'Name is required'],
         trim: true,
-        maxlength: [30, 'Name cannot exceed 30 characters']
+        maxlength: [30, 'Name cannot exceed 30 characters'],
+        unique: true
     },
     password: {
         type:String,
         required: [ true, 'Password is required'],
         trim: true,
-        minlength: [8, 'Password must be 8 - 16 characters in length'],
-        maxlength: [16, 'Password must be 8 - 16 characters in length']
+        minlength: [6, 'Password must be 6 - 12 characters in length'],
+        maxlength: [12, 'Password must be 6 - 12 characters in length']
     },
     goals: [ exerciseSchema ],
     logs: [ logSchema ]

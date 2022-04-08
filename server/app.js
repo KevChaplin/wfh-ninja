@@ -1,9 +1,12 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
-require('dotenv').config()
 
 const connectDB = require('./db/connect')
-const users = require('./routes/users')
+
+const usersRouter = require('./routes/users')
+const authRouter = require('./routes/auth')
+
 const notFound = require('./middleware/not-found')
 const errorHandlerMiddleware = require('./middleware/error-handler')
 
@@ -13,7 +16,8 @@ app.use(express.json())
 
 // Routes
 
-app.use('/api/v1/users', users)
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users', usersRouter)
 
 app.use(notFound)
 app.use(errorHandlerMiddleware)
