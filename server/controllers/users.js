@@ -49,7 +49,7 @@ const deleteUser = asyncWrapper(async (req, res, next) => {
         if(!user) {
             throw new NotFoundError(`No user with id ${userId}`, StatusCodes.NOT_FOUND)
         }
-        res.status(StatusCodes.OK).json({ user })
+        res.status(StatusCodes.OK).json({ msg: 'User successfully deleted' })
 })
 
 module.exports = {
