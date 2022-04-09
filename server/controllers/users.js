@@ -1,14 +1,15 @@
+const { StatusCodes } = require('http-status-codes')
 const User = require('../models/User')
 const asyncWrapper = require('../middleware/async')
-const { createCustomError } = require('../errors/custom-error')
+const { NotFoundError } = require('../errors')
 
 // Get all users (for testing - not needed in final)
 const getAllUser = asyncWrapper(async (req, res, next) => {
         const user = await User.find({})
         if(!user) {
-            return next(createCustomError('No users in Database', 404))
+            throw new NotFoundError('No users in Database', StatusCodes.NOT_FOUND)
         }
-        res.status(200).json({ user })
+        res.status(StatusCodes.OK).json({ user })
 })
 
 // Get user info
@@ -16,9 +17,9 @@ const getUser = asyncWrapper(async (req, res, next) => {
         const userId = req.params.id
         const user = await User.findById(userId)
         if(!user) {
-            return next(createCustomError(`No user with id ${userId}`, 404))
+            throw new NotFoundError(`No user with id ${userId}`, StatusCodes.NOT_FOUND)
         }
-        res.status(200).json({ user })
+        res.status(StatusCodes.OK).json({ user })
 })
 
 // Update user goal
@@ -26,9 +27,9 @@ const updateGoal = asyncWrapper(async (req, res, next) => {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate(userId, { $set: { goals: req.body } }, { new: true, runValidators: true })
         if(!user) {
-            return next(createCustomError(`No user with id ${userId}`, 404))
+            throw new NotFoundError(`No user with id ${userId}`, StatusCodes.NOT_FOUND)
         }
-        res.status(200).json({ user })
+        res.status(StatusCodes.OK).json({ user })
 })
 
 // Update user logs
@@ -36,9 +37,9 @@ const updateLogs = asyncWrapper(async (req, res, next) => {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate(userId, { $set: { logs: req.body } }, { new: true, runValidators: true })
         if(!user) {
-            return next(createCustomError(`No user with id ${userId}`, 404))
+            throw new NotFoundError(`No user with id ${userId}`, StatusCodes.NOT_FOUND)
         }
-        res.status(200).json({ user })
+        res.status(StatusCodes.OK).json({ user })
 })
 
 // Delete user
@@ -46,9 +47,9 @@ const deleteUser = asyncWrapper(async (req, res, next) => {
         const userId = req.params.id
         const user = await User.findByIdAndDelete(userId)
         if(!user) {
-            return next(createCustomError(`No user with id ${userId}`, 404))
+            throw new NotFoundError(`No user with id ${userId}`, StatusCodes.NOT_FOUND)
         }
-        res.status(200).json({ user })
+        res.status(StatusCodes.OK).json({ user })
 })
 
 module.exports = {
