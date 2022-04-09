@@ -8,7 +8,7 @@ const register = asyncWrapper(async (req, res) => {
     const token = user.createJWT()
     res
         .status(StatusCodes.CREATED)
-        .json({ user:{ name: user.name }, token })
+        .json({ user:{ name: user.name, userId: user._id }, token })
 })
 
 const login =  asyncWrapper(async (req, res) => {
