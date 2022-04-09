@@ -1,26 +1,54 @@
+require('dotenv').config()
+
+// Extra security packages
+const helmet = require('helmet')
+const cors = require('cors')
+const xss = require('xss-clean')
+const rateLimiter = require('express-rate-limit')
+
+
 const express = require('express')
 const app = express()
-const users = require('./routes/users')
 
-// Middleware
+const connectDB = require('./db/connect')
+const authenticateUser = require('./middleware/authentication')
 
+// Routers
+const usersRouter = require('./routes/users')
+const authRouter = require('./routes/auth')
+
+// Error handlers
+const notFound = require('./middleware/not-found')
+const errorHandlerMiddleware = require('./middleware/error-handler')
+
+app.set('trust proxy', 1)
+app.use(
+    rateLimiter({
+        windowMs: 15 * 60 * 1000,
+	    max: 100,
+    })
+)
 app.use(express.json())
+app.use(helmet())
+app.use(cors())
+app.use(xss())
 
 // Routes
-app.get('/hello', (req, res) => {
-    res.send('WFH Ninja')
-})
+app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/users', authenticateUser, usersRouter)
 
-app.use('/api/v1/users', users)
+app.use(notFound)
+app.use(errorHandlerMiddleware)
 
-// app.post('/api/v1/newuser')  - register new user 
-// app.post('/api/v1/users/:id/login')  - login user
-// app.get('/api/v1/users')  - get all users 
-// app.get('/api/v1/users/:id')  - get user info 
-// app.patch('/api/v1users/:id')  - post workout session
+const port =  process.env.PORT || 3000
 
+const start = async () => {
+    try {
+        await connectDB(process.env.MONGO_URI)
+        app.listen(port, console.log(`Server is listening on port ${port}`))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-
-const port = 3000
-
-app.listen(port, console.log(`Server is listening on port ${port}`))
+start()

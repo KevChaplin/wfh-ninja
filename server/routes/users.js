@@ -1,8 +1,17 @@
 const express = require('express')
 const router = express.Router()
 
-router.route('/').get((req, res) => {
-    res.send('all items')
-})
+const { 
+    getAllUser,
+    getUser,
+    updateGoal,
+    updateLogs,
+    deleteUser
+} = require('../controllers/users')
+
+router.route('/').get(getAllUser)
+router.route('/:id').get(getUser).delete(deleteUser)
+router.route('/:id/goals').patch(updateGoal)
+router.route('/:id/logs').patch(updateLogs)
 
 module.exports = router
