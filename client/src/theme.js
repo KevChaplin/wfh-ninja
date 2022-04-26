@@ -8,7 +8,7 @@ const theme = createTheme({
       main: 'hsl(15, 99%, 57%)',
     },
     secondary: {
-      main: 'hsl(0, 0%, 89%)',
+      main: 'hsl(0, 0%, 100%)',
     },
     tertiary: {
       main: 'hsl(0, 0%, 18%)'
@@ -16,7 +16,12 @@ const theme = createTheme({
     error: {
       main: red.A400,
     },
+    text: {
+      primary: 'hsl(0, 0%, 100%)',
+      secondary: 'hsl(90, 0%, 75%)'
+    }
   },
+
 });
 
 export default theme;
