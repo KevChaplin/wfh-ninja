@@ -21,7 +21,6 @@ const theme = createTheme({
       secondary: 'hsl(90, 0%, 75%)'
     }
   },
-
 });
 
 export default theme;
