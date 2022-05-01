@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Container from '@mui/material/Container';
 
-import Login from './Login'
-import Profile from './Profile'
-import Timer from './Timer'
+import Login from './Pages/Login'
+import Profile from './Pages/Profile'
+import Timer from './Pages/Timer'
 
 export default function App() {
   return (
