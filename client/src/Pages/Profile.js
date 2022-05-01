@@ -103,10 +103,6 @@ export default function Profile() {
                 />
             </Grid>
 
-
-            
-
-     
             <Grid item xs={12}>
                 <Button variant='outlined' color="secondary">Save</Button>
             </Grid>

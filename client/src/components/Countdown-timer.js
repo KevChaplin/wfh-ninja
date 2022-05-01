@@ -6,13 +6,15 @@ import Typography from '@mui/material/Typography'
 // Timer functionality, including work/break interval settings
 export default function CountdownTimer() {
 
-    const [ sessionType, setSessionType ] = React.useState('BREAK')
+    const [ sessionType, setSessionType ] = React.useState('WORK')
     const [ timerActive, setTimerActive ] = React.useState(false)
 
     const [ workInterval, setWorkInterval ] = React.useState(1)
     const [ breakInterval, setBreakInterval ] = React.useState(1)
 
     const [ time, setTime ] = React.useState(workInterval * 60)
+    let min = (Math.floor(time / 60)).toString().padStart(2, '0')
+    let sec = (time - 60 * min).toString().padStart(2, '0')
 
     // Increment functions for work time and break time. If incrementers are for current session time, will increment time also.
     // This allows user to manually adjust timer on the go. Timer within 0~99 minute range. 
@@ -67,10 +69,6 @@ export default function CountdownTimer() {
         };
     }
 
-
-    let min = Math.floor(time / 60)
-    let sec = time - 60 * min
-
     return (
         <Grid 
             container spacing={2} 
@@ -81,7 +79,7 @@ export default function CountdownTimer() {
                 justifyContent: 'center'}}
         >
             <Grid item xs={12}>
-                <Typography variant='h1'>{time}</Typography>
+                <Typography variant='h1'>{`${min}:${sec}`}</Typography>
             </Grid>
             <Grid item xs={4}>
                 <Button variant='outlined' color='secondary' onClick={handleStartStop}>Start/Stop</Button>
