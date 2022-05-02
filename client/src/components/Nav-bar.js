@@ -11,7 +11,7 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import { Link } from 'react-router-dom'
 
-const pages = [['Login', '/'], ['Timer', '/timer'], ['My Profile', '/profile']];
+const pages = [['Login', '/login'], ['Timer', '/timer'], ['My Profile', '/profile']];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
